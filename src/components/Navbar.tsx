@@ -54,7 +54,14 @@ const Navbar = ({ mode, toggleTheme }: ThemeProps) => {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          border: "2px solid dashed",
+          display: "flex",
+          justifyContent: "space-between",
+          position: "sticky",
+        }}
+      >
         <IconButton onClick={toggleDrawer(true)}>
           <Menu />
         </IconButton>

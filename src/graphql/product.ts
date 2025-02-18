@@ -33,7 +33,7 @@ query findProducts($filter:ProductFilter $limit:Int! $search:BaseSearch $skip:In
    }
  }
 `
-export const FetchProducts = async(limit:number,search:{title:string},skip:number,sort?:{dealPrice:'asc'|"desc"},filter?:{active:boolean},)=>{
+export const FetchProducts = async(limit:number,search:{title:string},skip:number,sort?:{dealPrice:'asc'|"desc"},filter?:{active?:boolean},)=>{
     try{
         const response = await axios({
             url:"https://test-api.nine.deals/graphql",

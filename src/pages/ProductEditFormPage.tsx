@@ -7,18 +7,20 @@ import {
   Breadcrumbs,
   Link,
   Typography,
+  Container,
 } from "@mui/material";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IProduct, ProductSchema } from "../types/product";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { FIND_PRODUCT_BY_ID } from "../graphql/product";
 import { Home } from "@mui/icons-material";
 
 const ProductEditFormPage = () => {
   const { id } = useParams();
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const methods = useForm<IProduct>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
@@ -45,10 +47,6 @@ const ProductEditFormPage = () => {
 
   const { setValue, control } = methods;
 
-  const onSubmit = () => {
-    console.log("clicked");
-  };
-
   const FetchProduct = useCallback(async () => {
     try {
       const AUTH_TOKEN =
@@ -69,7 +67,6 @@ const ProductEditFormPage = () => {
 
       const data = await res.data;
       const fetchedProduct = data.data.findProductById;
-      // setProduct(fetchedProduct);
       setValue("id", fetchedProduct.id);
       setValue("title", fetchedProduct.title);
       setValue("slug", fetchedProduct.slug);
@@ -86,157 +83,208 @@ const ProductEditFormPage = () => {
       setValue("handPicked", fetchedProduct.handPicked);
       setValue("active", fetchedProduct.active);
       setValue("expired", fetchedProduct.expired);
+      setImagePreviews(fetchedProduct.images || []);
     } catch (err) {
       console.log(err);
     }
   }, [id, setValue]);
 
+  const onSubmit = (data: IProduct) => {
+    console.log("clicked", data);
+  };
+
   useEffect(() => {
     FetchProduct();
   }, [FetchProduct]);
   return (
-    <>
-      <Breadcrumbs separator="›">
-        <Link
-          href="/login"
-          sx={{ color: "text.secondary", textDecoration: "none" }}
-        >
-          <Home />
-        </Link>
-        <Link
-          href="/products"
-          sx={{ color: "text.secondary", textDecoration: "none" }}
-        >
-          Products
-        </Link>
-        <Typography>Add Brand</Typography>
-      </Breadcrumbs>
-      <Box>
-        <FormProvider {...methods}>
-          <Box component="form" onSubmit={methods.handleSubmit(onSubmit)}>
-            <TextField
-              {...methods.register("title")}
-              fullWidth
-              placeholder="Title"
-            />
-            <TextField
-              {...methods.register("slug")}
-              fullWidth
-              placeholder="Slug"
-            />
-            <TextField {...methods.register("id")} fullWidth placeholder="Id" />
+    <Box sx={{ minHeight: "100vh", bgcolor: "Background.default", py: 4 }}>
+      <Container maxWidth="md">
+        <Breadcrumbs separator="›">
+          <Link
+            href="/login"
+            sx={{ color: "text.secondary", textDecoration: "none" }}
+          >
+            <Home />
+          </Link>
+          <Link
+            href="/products"
+            sx={{ color: "text.secondary", textDecoration: "none" }}
+          >
+            Products
+          </Link>
+          <Typography>Edit Product</Typography>
+        </Breadcrumbs>
+        <Box>
+          <FormProvider {...methods}>
+            <Box component="form" onSubmit={methods.handleSubmit(onSubmit)}>
+              <TextField
+                {...methods.register("id")}
+                fullWidth
+                placeholder="Id"
+                margin="normal"
+                disabled
+              />
+              <TextField
+                {...methods.register("title")}
+                fullWidth
+                placeholder="Title"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("slug")}
+                fullWidth
+                placeholder="Slug"
+                margin="normal"
+                disabled
+              />
 
-            <TextField
-              {...methods.register("description")}
-              fullWidth
-              placeholder="Description"
-            />
-            <TextField
-              {...methods.register("mrp")}
-              type="number"
-              fullWidth
-              placeholder="MRP"
-            />
-            <TextField
-              {...methods.register("listPrice")}
-              type="number"
-              fullWidth
-              placeholder="List Price"
-            />
-            <TextField
-              {...methods.register("dealPrice")}
-              type="number"
-              fullWidth
-              placeholder="Deal Price"
-            />
-            <TextField
-              {...methods.register("code")}
-              fullWidth
-              placeholder="Code"
-            />
-            <TextField
-              {...methods.register("brand")}
-              fullWidth
-              placeholder="Brand"
-            />
-            <TextField
-              {...methods.register("categoryPath")}
-              fullWidth
-              placeholder="Category"
-            />
-            <TextField
-              {...methods.register("store")}
-              fullWidth
-              placeholder="Store"
-            />
-            <TextField
-              {...methods.register("rating")}
-              type="number"
-              fullWidth
-              placeholder="Rating"
-            />
-            <TextField
-              {...methods.register("reviews")}
-              type="number"
-              fullWidth
-              placeholder="Reviews"
-            />
+              <TextField
+                {...methods.register("description")}
+                fullWidth
+                placeholder="Description"
+                margin="normal"
+                multiline
+              />
+              <TextField
+                {...methods.register("mrp")}
+                type="number"
+                fullWidth
+                placeholder="MRP"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("listPrice")}
+                type="number"
+                fullWidth
+                placeholder="List Price"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("dealPrice")}
+                type="number"
+                fullWidth
+                placeholder="Deal Price"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("code")}
+                fullWidth
+                placeholder="Code"
+                margin="normal"
+                disabled
+              />
+              <TextField
+                {...methods.register("brand")}
+                fullWidth
+                placeholder="Brand"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("categoryPath")}
+                fullWidth
+                placeholder="Category"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("store")}
+                fullWidth
+                placeholder="Store"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("rating")}
+                type="text"
+                inputMode="decimal"
+                fullWidth
+                placeholder="Rating"
+                margin="normal"
+              />
+              <TextField
+                {...methods.register("reviews")}
+                type="number"
+                fullWidth
+                placeholder="Reviews"
+                margin="normal"
+              />
 
-            <Controller
-              name="handPicked"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label="Handpicked"
-                />
+              {imagePreviews.length > 0 && (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                  {imagePreviews.map((img, index) => (
+                    <Box key={index} sx={{ width: 100, height: 100 }}>
+                      <img
+                        src={img}
+                        alt={`Preview ${index}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Box>
+                  ))}
+                </Box>
               )}
-            />
-
-            <Controller
-              name="active"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Controller
+                  name="handPicked"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label="Handpicked"
                     />
-                  }
-                  label="Active"
+                  )}
                 />
-              )}
-            />
-
-            <Controller
-              name="expired"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Controller
+                  name="active"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label="Active"
                     />
-                  }
-                  label="Expired"
+                  )}
                 />
-              )}
-            />
 
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
-          </Box>
-        </FormProvider>
-      </Box>
-    </>
+                <Controller
+                  name="expired"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label="Expired"
+                    />
+                  )}
+                />
+              </Box>
+
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button type="submit" variant="contained" color="primary">
+                  Submit
+                </Button>
+              </Box>
+            </Box>
+          </FormProvider>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

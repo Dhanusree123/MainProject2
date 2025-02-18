@@ -8,30 +8,40 @@ import BrandNew from "./pages/BrandNewPage";
 import ProductEditFormPage from "./pages/ProductEditFormPage";
 import ProductAddFormPage from "./pages/ProductAddFormPage";
 import { useState } from "react";
+import { ThemeProvider } from "@emotion/react";
+import getTheme from "./theme/useTheme";
+import { CssBaseline } from "@mui/material";
+import ProductAddPage from "./pages/ProductAddPage";
 
 const App = () => {
   const [mode, setMode] = useState<"light" | "dark">("dark");
 
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-    document.documentElement.setAttribute(
-      "data-theme",
-      mode === "light" ? "dark" : "light"
-    );
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+    document.documentElement.setAttribute("data-theme", newMode);
   };
+
   return (
     <>
       <BrowserRouter>
-        <Navbar mode={mode} toggleTheme={toggleTheme} />
-        <Routes>
-          <Route path="/login" element={<ProjectHomePage />} />
-          <Route path="/products" element={<ProductListPage />} />
-          <Route path="/products/:id/edit" element={<ProductEditFormPage />} />
-          <Route path="/products/new" element={<ProductAddFormPage />} />
-          <Route path="/brands" element={<BrandListPage />} />
-          <Route path="/brands/:id/edit" element={<BrandEditPage />} />
-          <Route path="/brands/new" element={<BrandNew />} />
-        </Routes>
+        <ThemeProvider theme={getTheme(mode)}>
+          <CssBaseline />
+          <Navbar mode={mode} toggleTheme={toggleTheme} />
+          <Routes>
+            <Route path="/login" element={<ProjectHomePage />} />
+            <Route path="/products" element={<ProductListPage />} />
+            <Route
+              path="/products/:id/edit"
+              element={<ProductEditFormPage />}
+            />
+            <Route path="/products/new" element={<ProductAddFormPage />} />
+            <Route path="/brands" element={<BrandListPage />} />
+            <Route path="/brands/:id/edit" element={<BrandEditPage />} />
+            <Route path="/brands/new" element={<BrandNew />} />
+            <Route path="/test" element={<ProductAddPage />} />
+          </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </>
   );

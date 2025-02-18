@@ -10,7 +10,7 @@ export const useTable = () => {
 
   const [page, setPage] = useState(initialPage);
 
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
   const onChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);

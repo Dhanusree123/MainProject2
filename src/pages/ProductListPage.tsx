@@ -3,7 +3,6 @@ import {
   Breadcrumbs,
   Button,
   Checkbox,
-  Grid,
   IconButton,
   Link,
   Pagination,
@@ -17,6 +16,7 @@ import {
   Tabs,
   TextField,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { FetchProducts } from "../graphql/product";
 import { useEffect, useState } from "react";
 import { IProduct } from "../types/product";
@@ -37,6 +37,7 @@ const ProductListPage = () => {
     params.get("search") || ""
   );
   const [tab, setTab] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
   const { page, setPage, rowsPerPage, onChangePage } = useTable();
 
@@ -93,7 +94,7 @@ const ProductListPage = () => {
   const handleSearchFocus = () => {
     const params = new URLSearchParams(location.search);
     const val = params.get("tab");
-    navigate(`/brands?page=1&tab=${val}`);
+    navigate(`/products?page=1&tab=${val}`);
     setPage(1);
   };
 
@@ -102,7 +103,11 @@ const ProductListPage = () => {
       const limit = rowsPerPage;
       const skip = (page - 1) * rowsPerPage;
       const search = { title: debouncedProduct };
-      let filter = {};
+      let filter: {
+        active?: boolean;
+        expired?: boolean;
+        handPicked?: boolean;
+      } = {};
       if (tab === 1) filter = { active: true };
       if (tab === 2) filter = { active: false };
       if (tab === 3) filter = { expired: true };
@@ -117,6 +122,7 @@ const ProductListPage = () => {
           filter
         );
         setProducts(fetchedProducts.products);
+        setCount(fetchedProducts.count);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -132,123 +138,126 @@ const ProductListPage = () => {
     }
   });
 
-  return (
-    <>
-      <Breadcrumbs separator="›">
-        <Link
-          href="/login"
-          sx={{ color: "text.secondary", textDecoration: "none" }}
-        >
-          <Home />
-        </Link>
-        <Link
-          href="/products"
-          sx={{ color: "text.secondary", textDecoration: "none" }}
-        >
-          Products
-        </Link>
-      </Breadcrumbs>
-      <Box sx={{ p: 3, pl: 10, pr: 10 }}>
-        <Box>
-          <TextField
-            value={searchProduct}
-            onChange={handleSearchChange}
-            onFocus={handleSearchFocus}
-            sx={{ width: "100%", mb: 3 }}
-          />
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button onClick={() => navigate("/products/new")}>Add Product</Button>
-        </Box>
+  console.log(count);
 
-        <Grid>
-          <Tabs
-            value={tab}
-            onChange={handleTab}
-            aria-label="brand filter tabs"
-            sx={{ mb: 2 }}
+  return (
+    <Box sx={{ ml: "auto", mr: "auto", width: "80%" }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
+        <Breadcrumbs separator="›">
+          <Link
+            href="/login"
+            sx={{ color: "text.secondary", textDecoration: "none" }}
           >
-            <Tab label="All" value={0} />
-            <Tab label="Active" value={1} />
-            <Tab label="Inactive" value={2} />
-            <Tab label="Expired" value={3} />
-            <Tab label="Handpicked" value={4} />
-          </Tabs>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
+            <Home />
+          </Link>
+          <Link
+            href="/products"
+            sx={{ color: "text.secondary", textDecoration: "none" }}
+          >
+            Products
+          </Link>
+        </Breadcrumbs>
+        <Button onClick={() => navigate("/products/new")}>Add Product</Button>
+      </Box>
+
+      <TextField
+        value={searchProduct}
+        onChange={handleSearchChange}
+        onFocus={handleSearchFocus}
+        sx={{ width: "100%", mb: 3 }}
+      />
+
+      <Grid component="div" sx={{ ml: 0, mr: 0 }}>
+        <Tabs
+          value={tab}
+          onChange={handleTab}
+          aria-label="brand filter tabs"
+          sx={{ mb: 2 }}
+        >
+          <Tab label="All" value={0} />
+          <Tab label="Active" value={1} />
+          <Tab label="Inactive" value={2} />
+          <Tab label="Expired" value={3} />
+          <Tab label="Handpicked" value={4} />
+        </Tabs>
+
+        <TableContainer sx={{ maxWidth: "100%", border: "1px solid #555" }}>
+          <Table sx={{ minWidth: 750 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <Checkbox
+                    checked={selectAll}
+                    onChange={handleSelectAll}
+                    indeterminate={
+                      selectedRows.size > 0 &&
+                      selectedRows.size < products.length
+                    }
+                  />
+                </TableCell>
+                <TableCell sx={{ textAlign: "left" }}>Title</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Brand</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Category</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Deal Price</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>List Price</TableCell>
+                <TableCell sx={{ textAlign: "center" }}>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {products.map((p) => (
+                <TableRow key={p.title}>
                   <TableCell>
                     <Checkbox
-                      checked={selectAll}
-                      onChange={handleSelectAll}
-                      indeterminate={
-                        selectedRows.size > 0 &&
-                        selectedRows.size < products.length
-                      }
+                      checked={selectedRows.has(p.title)}
+                      onChange={() => handleRowSelect(p.title)}
                     />
                   </TableCell>
-                  <TableCell sx={{ textAlign: "left" }}>Title</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Brand</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Category</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Deal Price</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>List Price</TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>Actions</TableCell>
+                  <TableCell sx={{ textAlign: "left", width: "20%" }}>
+                    <Box>
+                      <img src={p.images[0]} width={40} height={40} />
+                    </Box>
+                    {p.title}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>{p.brand}</TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {p.categoryPath
+                      .replace(/_/g, " ")
+                      .replace(/^\S+\s+/, "")
+                      .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {p.dealPrice}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {p.listPrice}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    <IconButton
+                      onClick={() => navigate(`/products/${p.id}/edit`)}
+                    >
+                      <Edit />
+                    </IconButton>
+                    <IconButton>
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {products.map((p) => (
-                  <TableRow key={p.title}>
-                    <TableCell>
-                      <Checkbox
-                        checked={selectedRows.has(p.title)}
-                        onChange={() => handleRowSelect(p.title)}
-                      />
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "left", width: "20%" }}>
-                      <Box>
-                        <img src={p.images[0]} width={40} height={40} />
-                      </Box>
-                      {p.title}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      {p.brand}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      {p.categoryPath}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      {p.dealPrice}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      {p.listPrice}
-                    </TableCell>
-                    <TableCell sx={{ textAlign: "center" }}>
-                      <IconButton
-                        onClick={() => navigate(`/products/${p.id}/edit`)}
-                      >
-                        <Edit />
-                      </IconButton>
-                      <IconButton>
-                        <Delete />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
 
+      {count < rowsPerPage ? null : (
         <Box sx={{ m: 2, display: "flex", justifyContent: "center" }}>
           <Pagination
-            count={Math.ceil(25 / 5)}
+            count={Math.ceil(count / 10)}
             page={page}
             onChange={onChangePage}
           />
         </Box>
-      </Box>
-    </>
+      )}
+    </Box>
   );
 };
 
