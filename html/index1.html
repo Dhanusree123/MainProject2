@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="../scripts/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- <header class="navbar">
+            <div class="logo">
+                <div class="toggle-btn"></div>
+                <h3>&nbsp;Simple Studio</h3>
+            </div>
+            <div class="menutoggle" id="menuToggle">
+                <i class="fa fa-bars"></i>
+            </div>
+            <a href="#" class="contact-link">Get in touch</a>
+        </header> -->
+
+        <!-- <div class="menu-overlay" id="menuOverlay">
+            <div class="close-btn" id="closeMenu">
+                <i class="fa fa-xmark"></i>
+            </div>
+            <ul class="menu-items"> 
+                <li><span>(01)</span> SERVICES <i class="fas fa-arrow-down"></i></li>
+                <li><span>(02)</span> OUR WORK <i class="fas fa-arrow-down"></i></li>
+                <li><span>(03)</span> PEOPLE & CULTURE <i class="fas fa-arrow-down"></i></li>
+                <li><span>(04)</span> CLIENTS & PARTNERS <i class="fas fa-arrow-down"></i></li>
+                <li><span>(05)</span> GET IN TOUCH <i class="fas fa-arrow-down"></i></li>
+            </ul>
+        </div> -->
+        <header>
+            <div class="logo">Simple Studio</div>
+            <button class="hamberger-icon" id="hamberger-icon" onclick="expandHeader()"></button>
+            <a href="#footer">Get in touch</a>
+        </header>
+        <section class="header-section-expand align-center" id="header-section-expand">
+            <div class="menu">
+                <div class="menu-item">
+                    <span class="number">(01)</span>
+                    <span class="text">SERVICES</span>
+                    <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="menu-item">
+                    <span class="number">(02)</span>
+                    <span class="text">OUR WORK</span>  
+                    <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="menu-item">
+                    <span class="number">(03)</span>
+                    <span class="text">PEOPLE & CULTURE</span>
+                    <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="menu-item">
+                    <span class="number">(04)</span>
+                    <span class="text">CLIENTS & PARTNERS</span>
+                    <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <div class="menu-item">
+                    <span class="number">(05)</span>
+                    <span class="text">GET IN TOUCH</span>
+                    <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="heading">
+            <div>WE DESIGN</div>
+            <div class="world-class-container"><hr class="animated-hr"><span>WORLD-CLASS</span></div>
+            <div>DIGITAL PRODUCTS</div>
+        </div>
+
+        <div class="sub-content">
+            <p>Simple Studio is a design studio focused on digital products<br/> that works with companies around the world, helping them<br/> grow and expand their business.</p>
+        </div>
+
+        <div class="services">
+            <img src="../images/our-services.png" alt="Office Meeting" class="image">
+            <div class="text-overlay">
+                <div>Our</div>
+                <div>services</div>
+            </div>
+        </div>
+
+        <div class="accordian">
+            <div class="accordian-header" onclick="toggleAccordian()">
+                <span class="title">(01) Product Design</span>
+                <i class="fa-solid fa-plus icon"></i>
+            </div>
+            <div class="accordian-content">
+                <p> We develop innovative solutions by identifying the problem that needs to be addressed and 
+                    creating a meaningful experience that meets the needs of the end-users and is also aligned 
+                    with the context in which the product will be used. Our solutions prioritize a meaningful 
+                    user experience and therefore a close team collaboration to ensure the final product adds 
+                    significant value to our clients' businesses.
+                </p>
+                <div class="tags">
+                    <span>UX Design</span>
+                    <span>UI Design</span>
+                    <span>Design Systems</span>
+                    <span>Motion Design</span>
+                    <span>Prototyping</span>
+                    <span>Interaction Design</span>
+                </div>
+            </div>
+
+            <div class="accordian-header" onclick="toggleAccordian()">
+                <span class="title">(02) Design Strategy</span>
+                <i class="fa-solid fa-plus icon"></i>
+            </div>
+            <div class="accordian-content">
+                <p> This is one of the initial stages of a project's life cycle.  It involves a structured approach to  product definition, product discovery, and collaboration with clients. A strong focus on design strategy ensures project success and provides a clear guide from scratch. It's crucial during this stage to establish requirements and goals for the product, laying the groundwork for the entire project and aligning all stakeholders toward common objectives.
+                </p>
+                <div class="tags">
+                    <span>Design Strategy</span>
+                    <span>Product Definition</span>
+                    <span>Product Discovery</span>
+                    <span>Creative Workshops</span>
+                    <span>Strategy Workshops</span>
+                </div>
+            </div>
+
+            <div class="accordian-header" onclick="toggleAccordian()">
+                <span class="title">(03) Consulting</span>
+                <i class="fa-solid fa-plus icon"></i>
+            </div>
+            <div class="accordian-content">
+                <p>We help our clients improve their performance through expert advice, guidance and support. We rely on research, audits, and usability testing to identify areas for improvement and deliver actionable recommendations in a detailed report that will outline the current product state, improvement suggestions and a tailored roadmap.</p>
+                <div class="tags">
+                    <span>Competitive Analysis</span>
+                    <span>Consumer & Market research</span>
+                    <span>Usability Testing</span>
+                    <span>UX Audits</span>
+                </div>
+            </div>
+
+            <div class="accordian-header" onclick="toggleAccordian()">
+                <span class="title">(04) Branding</span>
+                <i class="fa-solid fa-plus icon"></i>
+            </div>
+            <div class="accordian-content">
+                <p>In our branding service, we focus on developing cohesive brand strategies. This involves creating a unified look, feel, and message across all channels to build brand awareness and recognition. Our approach begins with understanding the brand's essence, enabling us to develop a resonant brand identity that fosters meaningful connections with the target audience.</p>
+                <div class="tags">
+                    <span>Brand Strategy</span>
+                    <span>Brand Identity</span>
+                    <span>Brand Guidelines</span>
+                    <span>Brand Assets</span>
+                </div>
+            </div>
+
+            <div class="accordian-header" onclick="toggleAccordian()">
+                <span class="title">(05) Development</span>
+                <i class="fa-solid fa-plus icon"></i>
+            </div>
+            <div class="accordian-content">
+                <p>Although we are a design studio, we believe it is crucial to provide our clients with a complete solution. This is why our services include a team of specialists in front-end development who will ensure that the website or application meets the client's requirements, is functional, and optimized. Our process also includes QA to ensure that the product is functioning correctly and looks as expected.</p>
+                <div class="tags">
+                    <span>Front-end Development</span>
+                    <span>Content & SEO Strategy</span>
+                    <span>Quality Assurance</span>
+                    <span>CMS Functionality & E-commerce</span>
+                    <span>Popular Services Integration</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="people-culture">
+            <div class="first-part">
+                <div class="left">
+                    <div>People</div>
+                    <div>& Culture</div>
+                    <p>The studio was founded in 2022 by Guzmán Barquín. A multidisciplinary designer with 10 years of experience in digital products.</p>
+                </div>
+                <div class="right">
+                    <p>Simple Studio® arises from the need to be part of a design space where transparency and collaboration are fundamental.</p>
+                    <p>We all bring our expertise, but even more importantly, our passion. If each person contributes a bit of what they're passionate about, only good things can come out of it.</p>
+                </div>
+            </div>
+          
+            <div class="uruguay">
+                <div>From Uruguay to Spain</div>
+                <div>we built Simple Studio® with</div>
+                <div>a group of people who love what they do.</div>
+            </div>
+
+            <div class="slider-1">
+                <div class="slider1">
+                    <img src="../images/c1-image5.webp"/>
+                    <img src="../images/c1-image4.webp"/>
+                    <img src="../images/c1-image3.webp"/>
+                    <img src="../images/c1-image2.webp"/>
+                    <img src="../images/c1-image1.webp"/>
+                </div>
+                <div class="slider1">
+                    <img src="../images/c1-image5.webp"/>
+                    <img src="../images/c1-image4.webp"/>
+                    <img src="../images/c1-image3.webp"/>
+                    <img src="../images/c1-image2.webp"/>
+                    <img src="../images/c1-image1.webp"/>
+                </div>
+            </div>
+
+            <!-- <div class="slider-2">
+                <div class="slider2">
+                    <img src="../images/c2-image1.webp"/>
+                    <img src="../images/c2-image2.webp"/>
+                    <img src="../images/c2-image3.webp"/>
+                    <img src="../images/c2-image4.webp"/>
+                    <img src="../images/c2-image5.webp"/>
+                </div>
+                <div class="slider2">
+                    <img src="../images/c2-image1.webp"/>
+                    <img src="../images/c2-image2.webp"/>
+                    <img src="../images/c2-image3.webp"/>
+                    <img src="../images/c2-image4.webp"/>
+                    <img src="../images/c2-image5.webp"/>
+                </div>
+            </div> -->
+
+            <div class="clients-partners">
+                <div class="left">
+                    <div>Clients</div>
+                    <div>& Partners</div>
+                </div>
+                <div class="right">
+                    <span>Simple Studio® Collaborations</span>
+                    <p>We trust in the collaboration between people & companies and how they complement each other.</p>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide">
+                        <h5>Simple Studio® x DrivenIQ</h5>
+                        <p>DrivenIQ came to us with the objective of design & developing both their products and their website. During this process, we have achieved incredible results, positioning them successfully in the field of data, intelligence, and large-scale audiences.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x Hikko</h5>
+                        <p>Hikko, in collaboration with Simple Studio from the very beginning, is a company dedicated to scaling businesses and organizations. By synergizing strategic technology with creative force, they empower ventures to achieve exponential growth and success.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x mendesaltaren</h5>
+                        <p>We have a very close relationship with the Spanish design studio mendesaltaren which has allowed us to collaborate with them on various projects. We also enjoy sharing other spaces related to professional growth, such as workshops, training sessions, or talks.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x Pento.ai</h5>
+                        <p>We helped Pento from the beginning with its positioning, strategy, and product definition in the Artificial Intelligence and Machine Learning industry. Today, the company has expanded throughout the Americas.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x Zenital</h5>
+                        <p>One of Uruguay's most promising companies, has a successful history with 100+ projects in 30 markets. Leveraging Zendesk, they aim to excel in solving customer service, experience, and sales challenges with cutting-edge technology.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x ByBeyond</h5>
+                        <p>Through a collaboration with ByBeyond, two design studios with very similar philosophies, processes, and values, we established an alliance to actively collaborate on new opportunities.</p>
+                    </div>
+                    <div class="slide">
+                        <h5>Simple Studio® x Ananá</h5>
+                        <p>Ananá, a design studio based in Uruguay, has joined forces with us in a collaborative effort, as both studios share philosophies, processes, and values, enabling us to explore new opportunities together.</p>
+                    </div>
+                </div>
+                <button class="slide-button">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="text-slider-1">
+                <div class="text-1">
+                    <div>HONESTY</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>PURPOSE</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>COMMITMENT</div>
+                    <div><img src="../images/svgimage.svg"/></div> 
+                </div>
+                <div class="text-1">
+                    <div>HONESTY</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>PURPOSE</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>COMMITMENT</div>
+                    <div><img src="../images/svgimage.svg"/></div> 
+                </div>       
+            </div>
+          
+            <div class="text-slider-2">
+                <div class="text-2">
+                    <div>EVOLUTION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>COLLABORATION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>PASSION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                </div>
+                <div class="text-2">
+                    <div>EVOLUTION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>COLLABORATION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                    <div>PASSION</div>
+                    <div><img src="../images/svgimage.svg"/></div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="footer-container">
+            <h1>Get in touch.</h1>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <p>Let's start a conversation</p>
+                    <a href="#">hi@simplestudio.is</a>
+                </div>
+                <div class="grid-item">
+                    <p>Based on</p>
+                    <div>Madrid, ES</div>
+                    <div>Montevideo, UY</div>
+                </div>
+                <div class="grid-item">
+                    <p>Follow us</p>
+                    <div>
+                        <div><a href="#" class="link">dribble <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                        <div><a href="#" class="link">linkedin <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                        <div><a href="#" class="link">instagram <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                        <div><a href="#" class="link">twitter <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="footer-content">
+                    <p class="button"> </p>
+                    <span class="brand">Simple Studio®</span>
+                </div>
+                <p class="copyright">© 2025 Simple Studio LLC. All Rights Reserved</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
