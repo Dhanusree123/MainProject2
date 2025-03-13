@@ -12,7 +12,10 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">Simple Studio</div>
+            <div class="icon">
+                <div class="button"> </div>
+                <div class="logo">Simple Studio</div>
+            </div>
             <button class="hamberger-icon" id="hamberger-icon" onclick="expandHeader()"></button>
             <a href="#">Get in touch</a>
         </header>
@@ -61,16 +64,28 @@
         </div>
 
         <div class="sub-content">
-            <p>Simple Studio is a design studio focused on digital products<br/> that works with companies around the world, helping them<br/> grow and expand their business.</p>
+            <p>Simple Studio is a design studio focused on digital products that works with companies around the world, helping them grow and expand their business.</p>
         </div>
 
-        <div class="services">
-            <img src="../images/our-services.png" alt="Office Meeting" class="image">
-            <div class="text-overlay">
-                <div>Our</div>
-                <div>services</div>
+        <!-- .text2{
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.3s;
+                        &:nth-child(1) {
+
+                                animation: slide-up 1s ease;
+
+        } -->
+        <section class="services">
+            <div class="text">
+                <div class="text1">Our</div>
+                <div class="text2">Services</div>
             </div>
-        </div>
+            <div class="image-container">
+                <img src="../images/our-services.png" alt="Office Scene">
+            </div>
+        </section>
 
         <div class="accordian">
             <div class="accordian-header" onclick="toggleAccordian()">
@@ -154,6 +169,16 @@
             </div>
         </div>
 
+        <div class="parallax-image-sec">
+            <div class="parallax-images">
+                <img src="../images/z-img1.jpg" alt="Image1"/>
+                <img src="../images/z-img2.jpg" alt="Image2"/>
+                <img src="../images/z-img3.jpg" alt="Image3"/>
+                <img src="../images/z-img4.jpg" alt="Image4"/>
+                <img src="../images/z-img5.jpg" alt="Image5"/>
+            </div>
+        </div>
+
         <div class="people-culture">
             <div class="first-part">
                 <div class="left">
@@ -172,15 +197,9 @@
                 <div>we built Simple Studio® with</div>
                 <div>a group of people who love what they do.</div>
             </div>
+        </div>
 
-            <div class="parallax-image-sec">
-                <img src="../images/z-img1.jpg" alt="Image1"/>
-                <img src="../images/z-img2.jpg" alt="Image2"/>
-                <img src="../images/z-img3.jpg" alt="Image3"/>
-                <img src="../images/z-img4.jpg" alt="Image4"/>
-                <img src="../images/z-img5.jpg" alt="Image5"/>
-            </div>
-
+        <div class="div-slider">
             <div class="slider-1">
                 <div class="slider1">
                     <img src="../images/c1-image5.webp"/>
@@ -213,8 +232,10 @@
                     <img src="../images/c2-image4.webp"/>
                     <img src="../images/c2-image5.webp"/>
                 </div>
-            </div> 
-
+            </div>
+        </div>
+        
+        <div class="container-yellow">
             <div class="clients-partners">
                 <div class="left">
                     <div>Clients</div>
@@ -299,38 +320,40 @@
                     <div><img src="../images/svgimage.svg"/></div>
                 </div>
             </div>
-        </div> 
 
-        <div class="footer-container">
-            <h1>Get in touch.</h1>
-            <div class="grid-container">
-                <div class="grid-item">
-                    <p>Let's start a conversation</p>
-                    <a href="#">hi@simplestudio.is</a>
-                </div>
-                <div class="grid-item">
-                    <p>Based on</p>
-                    <div>Madrid, ES</div>
-                    <div>Montevideo, UY</div>
-                </div>
-                <div class="grid-item">
-                    <p>Follow us</p>
-                    <div>
-                        <div><a href="#" class="link">dribble <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
-                        <div><a href="#" class="link">linkedin <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
-                        <div><a href="#" class="link">instagram <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
-                        <div><a href="#" class="link">twitter <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+            <div class="footer-container">
+                <h1>Get in touch.</h1>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <p>Let's start a conversation</p>
+                        <a href="#">hi@simplestudio.is</a>
+                    </div>
+                    <div class="grid-item">
+                        <p>Based on</p>
+                        <div>Madrid, ES</div>
+                        <div>Montevideo, UY</div>
+                    </div>
+                    <div class="grid-item">
+                        <p>Follow us</p>
+                        <div>
+                            <div><a href="#" class="link">dribble <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                            <div><a href="#" class="link">linkedin <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                            <div><a href="#" class="link">instagram <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                            <div><a href="#" class="link">twitter <span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+                        </div>
                     </div>
                 </div>
+                <footer class="footer">
+                    <div class="footer-content">
+                        <p class="button"> </p>
+                        <span class="brand">Simple Studio®</span>
+                    </div>
+                    <p class="copyright">© 2025 Simple Studio LLC. All Rights Reserved</p>
+                </footer>
             </div>
-            <footer class="footer">
-                <div class="footer-content">
-                    <p class="button"> </p>
-                    <span class="brand">Simple Studio®</span>
-                </div>
-                <p class="copyright">© 2025 Simple Studio LLC. All Rights Reserved</p>
-            </footer>
         </div>
+
+       
     </div>
 </body>
 </html>
