@@ -547,7 +547,7 @@ header a {
   padding-left: 100px;
 }
 .slider-container .slide {
-  min-width: 300px;
+  min-width: 200px;
   margin-right: 20px;
   padding: 20px;
   background-color: white;

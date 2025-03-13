@@ -62,59 +62,6 @@ document.addEventListener("DOMContentLoaded",function(){
     });  
 })
 
-document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.querySelector(".slider");
-    const slideButton = document.querySelector(".slide-button");
-    const sliderContainer = document.querySelector(".slider-container");
-
-    if (!slider || !slideButton || !sliderContainer) {
-        console.error("Error: Missing elements!");
-        return;
-    }
-
-    let currentIndex = 0;
-    let direction = 1;
-
-    sliderContainer.addEventListener("mousemove", (e) => {
-        const rect = sliderContainer.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-
-        x = Math.max(25, Math.min(x, rect.width - 25));
-        y = Math.max(25, Math.min(y, rect.height - 25));
-
-        slideButton.style.left = `${x}px`;
-        slideButton.style.top = `${y}px`;
-    });
-
-    slideButton.addEventListener("click", () => {
-        const slides = document.querySelectorAll(".slide");
-        if (slides.length === 0) {
-            console.error("Error: No slides found!");
-            return;
-        }
-
-        const slideWidth = slides[0].offsetWidth + 20; 
-        const maxIndex = slides.length - 1;
-
-        
-        currentIndex += direction;
-
-        if (currentIndex >= maxIndex) {
-            direction = -1;
-        } else if (currentIndex <= 0) {
-            direction = 1;
-        }
-
-        slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
-
-        slideButton.querySelector("i").style.transform = direction === 1 ? "rotate(0deg)" : "rotate(180deg)";
-    });
-});
-
-
-
-
 
 function expandHeader() {
     const hambergerIcon = document.getElementById("hamberger-icon");
