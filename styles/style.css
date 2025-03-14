@@ -29,7 +29,6 @@ a {
   height: auto;
   background-color: black;
   color: white;
-  border: 2px solid blue;
 }
 
 @media (max-width: 1300px) {
@@ -69,7 +68,7 @@ header .icon {
 header .icon .button {
   width: 35px;
   height: 20px;
-  background-color: white;
+  background-color: rgb(88, 85, 85);
   border-radius: 50px;
   display: inline-block;
 }
@@ -130,20 +129,22 @@ header a {
   transform: translateY(0);
 }
 
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
 @keyframes slide-right {
   from {
     width: 0;
   }
   to {
     width: 13vw;
+  }
+}
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 .menu {
@@ -159,9 +160,26 @@ header a {
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  transform: translateY(50px);
+  animation: slide-up 0.6s ease-in-out forwards;
+}
+.menu .menu-item .menu-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.menu .menu-item .menu-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.menu .menu-item .menu-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.menu .menu-item .menu-item:nth-child(4) {
+  animation-delay: 0.8s;
 }
 .menu .menu-item .number {
   margin-right: 10px;
+  opacity: 0.7;
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
 }
 .menu .menu-item .text {
   flex-grow: 1;
@@ -181,7 +199,7 @@ header a {
   background: black;
 }
 .menu .menu-item:hover .text {
-  transform: translateX(10px);
+  transform: translateX(15px);
 }
 .menu .menu-item:hover .arrow {
   transform: rotate(45deg);
@@ -200,7 +218,7 @@ header a {
     width: 95%;
   }
   .menu-item {
-    font-size: 5vw;
+    font-size: 12px;
   }
 }
 @media (max-width: 480px) {
@@ -208,7 +226,7 @@ header a {
     width: 100%;
   }
   .menu-item {
-    font-size: 6vw;
+    font-size: 14px;
     text-align: center;
   }
   .menu-item .number {
@@ -282,6 +300,7 @@ header a {
   padding-left: 200px;
   max-width: 45%;
   opacity: 0;
+  font-size: larger;
   animation: slideUp 3s ease forwards;
 }
 @media (max-width: 786px) {
@@ -669,6 +688,11 @@ header a {
   transition: transform 0.5s ease-in-out;
   padding-left: 100px;
 }
+@media (max-width: 798px) {
+  .slider-container .slider {
+    padding-left: 30px;
+  }
+}
 .slider-container .slide {
   min-width: 300px;
   margin-right: 20px;
@@ -905,46 +929,46 @@ header a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-  height: 100vh;
+  height: 600vh;
   padding: 10px 0;
-  overflow: hidden;
-}
-.parallax-image-sec .parallax-images {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  height: 600px;
 }
 .parallax-image-sec img {
-  width: 80%;
+  width: 90%;
   height: auto;
-  border-radius: 15px;
-  position: absolute;
+  border-radius: 25px;
+  position: sticky;
+  top: 100px;
   transition: transform 0.3s linear;
+  margin-bottom: 30px;
   z-index: 1;
+  padding-top: calc(var(--index) * 2rem);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .parallax-image-sec img:nth-child(1) {
   z-index: 1;
+  --index:1;
 }
 
 .parallax-image-sec img:nth-child(2) {
   z-index: 2;
+  --index:2;
 }
 
 .parallax-image-sec img:nth-child(3) {
   z-index: 3;
+  --index:3;
 }
 
 .parallax-image-sec img:nth-child(4) {
   z-index: 4;
+  --index:4;
 }
 
 .parallax-image-sec img:nth-child(5) {
   z-index: 5;
+  --index:5;
 }
 
 /*# sourceMappingURL=style.css.map */

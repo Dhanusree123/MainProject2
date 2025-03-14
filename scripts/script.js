@@ -74,53 +74,6 @@ function expandHeader() {
     header[0].classList.toggle('color-black');
 }
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const slider = document.querySelector(".slider");
-//     const slideButton = document.querySelector(".slide-button");
-//     const sliderContainer = document.querySelector(".slider-container");
-
-//     if (!slider || !slideButton || !sliderContainer) {
-//         console.error("Error: Missing elements!");
-//         return;
-//     }
-
-//     let currentIndex = 0;
-//     let direction = 1;
-
-//     sliderContainer.addEventListener("mousemove", (e) => {
-//         const rect = sliderContainer.getBoundingClientRect();
-//         let x = e.clientX - rect.left;
-//         let y = e.clientY - rect.top;
-
-//         x = Math.max(25, Math.min(x, rect.width - 25));
-//         y = Math.max(25, Math.min(y, rect.height - 25));
-
-//         slideButton.style.left = `${x}px`;
-//         slideButton.style.top = `${y}px`;
-//     });
-
-//     slideButton.addEventListener("click", () => {
-//         const slides = document.querySelectorAll(".slide");
-//         if (slides.length === 0) {
-//             console.error("Error: No slides found!");
-//             return;
-//         }
-
-//         const slideWidth = slides[0].offsetWidth + 20; 
-//         const maxIndex = slides.length - 1;
-        
-//         currentIndex += direction;
-//         if (currentIndex >= maxIndex) {
-//             direction = -1;
-//         } else if (currentIndex <= 0) {
-//             direction = 1;
-//         }
-
-//         slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
-//         slideButton.querySelector("i").style.transform = direction === 1 ? "rotate(0deg)" : "rotate(180deg)";
-//     });
-// });
-
 document.addEventListener("DOMContentLoaded", function () {
     const slider = document.querySelector(".slider");
     const slideButton = document.querySelector(".slide-button");
@@ -132,32 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let currentIndex = 0;
-    let direction = 1; // 1 = forward, -1 = backward
+    let direction = 1; 
 
-    // Detect mouse movement inside the slider container
-    sliderContainer.addEventListener("mousemove", (e) => {
-        const rect = sliderContainer.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-
-        x = Math.max(25, Math.min(x, rect.width - 25));
-        y = Math.max(25, Math.min(y, rect.height - 25));
-
-        slideButton.style.left = `${x}px`;
-        slideButton.style.top = `${y}px`;
-
-        // Check the mouse position relative to the window width
-        const windowMid = window.innerWidth / 2;
-        if (e.clientX < windowMid) {
-            slideButton.querySelector("i").style.transform = "rotate(180deg)"; // Left arrow
-            direction = -1;
-        } else {
-            slideButton.querySelector("i").style.transform = "rotate(0deg)"; // Right arrow
-            direction = 1;
-        }
-    });
-
-    // Handle slide button click
     slideButton.addEventListener("click", () => {
         const slides = document.querySelectorAll(".slide");
         if (slides.length === 0) {
@@ -178,36 +107,4 @@ document.addEventListener("DOMContentLoaded", function () {
         slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
     });
 });
-
-
-// document.addEventListener("scroll", function () {
-//     let scrollPosition = window.scrollY;
-//     let images = document.querySelectorAll(".parallax-image-sec img");
-
-//     images.forEach((img, index) => {
-//         let speed = (index + 1) * 0.3; // Adjust parallax speed
-//         img.style.transform = `translate(-50%, ${scrollPosition * speed}px)`;
-//     });
-// });
-
-
-// document.addEventListener("scroll", function () {
-//     let scrollPosition = window.scrollY;
-//     let images = document.querySelectorAll(".parallax-images img");
-
-//     images.forEach((img, index) => {
-//         let depth = (index + 1) * 10; // Adjusts movement depth
-//         img.style.transform = `translateY(${scrollPosition * 0.1 - depth}px) scale(${1 - index * 0.02})`;
-//     });
-// });
-
-// document.addEventListener("scroll", function () {
-//     let scrollPosition = window.scrollY;
-//     let images = document.querySelectorAll(".parallax-images img");
-
-//     images.forEach((img, index) => {
-//         let depth = (index + 1) * 10; // Adjust movement depth
-//         img.style.transform = `translateY(${scrollPosition * 0.15 - depth}px) scale(${1 - index * 0.02})`;
-//     });
-// });
 
