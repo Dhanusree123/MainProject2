@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const hrElement = document.querySelector(".animated-hr");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const hrElement = document.querySelector(".animated-hr");
     
-    setTimeout(() => {
-        hrElement.classList.add("active");
-    }, 200); 
-});
+//     setTimeout(() => {
+//         hrElement.classList.add("active");
+//     }, 200); 
+// });
 
 document.addEventListener("DOMContentLoaded",function(){
     const accordions = document.querySelectorAll(".accordian-header");
@@ -87,13 +87,29 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     let direction = 1; 
 
+    sliderContainer.addEventListener('mousemove',(e)=>{
+        const rect = sliderContainer.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        x = Math.max(25, Math.min(x, rect.width - 25));
+        y = Math.max(25, Math.min(y, rect.height - 25));
+
+        slideButton.style.left = `${x}px`;
+        slideButton.style.top = `${y}px`;
+
+        const windowMid = window.innerWidth / 2;
+        if (e.clientX < windowMid) {
+            slideButton.querySelector("i").style.transform = "rotate(180deg)"; 
+            direction = -1;
+        } else {
+            slideButton.querySelector("i").style.transform = "rotate(0deg)"; 
+            direction = 1;
+        }
+    })
+
     slideButton.addEventListener("click", () => {
         const slides = document.querySelectorAll(".slide");
-        if (slides.length === 0) {
-            console.error("Error: No slides found!");
-            return;
-        }
-
         const slideWidth = slides[0].offsetWidth + 20; 
         const maxIndex = slides.length - 1;
 
