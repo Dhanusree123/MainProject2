@@ -1,103 +1,370 @@
-import Image from "next/image";
+// "use client";
+// import {
+//   Box,
+//   Button,
+//   Card,
+//   CardActions,
+//   CardContent,
+//   Pagination,
+//   Tooltip,
+//   Typography,
+// } from "@mui/material";
+// import axios from "axios";
+// import React, { useEffect, useState } from "react";
+// import Grid from "@mui/material/Grid2";
+// import { useRouter } from "next/navigation";
+// import PinterestIcon from "@mui/icons-material/Pinterest";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// export type IProduct = {
+//   id: number;
+//   title: string;
+//   price: number;
+//   description: string;
+//   category: string;
+//   image: string;
+//   rating: {
+//     rate: number;
+//     count: number;
+//   };
+// };
+// const ProductsPage = () => {
+//   const [products, setProducts] = useState<IProduct[]>([]);
+//   const [page, setPage] = useState<number>(1);
+//   const [totalCount, setTotalCount] = useState<number>(0);
+//   const [productCount, setProductCount] = useState<{ [key: number]: number }>(
+//     {}
+//   );
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+//   const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+//   const limit = 4;
+//   const skip = (page - 1) * limit;
+
+//   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+//     setPage(value);
+//     router.push(`?page=${value}`);
+//   };
+
+//   const handleAddToLocal = async (id: number) => {
+//     const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
+//     const productToCart = res.data;
+//     const existingStorage = localStorage.getItem("products");
+//     const existingCart = localStorage.getItem("cart");
+
+//     const cartItems: IProduct[] = existingStorage
+//       ? JSON.parse(existingStorage)
+//       : [];
+//     const productCount: { [key: number]: number } = existingCart
+//       ? JSON.parse(existingCart)
+//       : {};
+
+//     if (productCount[id]) {
+//       productCount[id] += 1;
+//     } else {
+//       productCount[id] = 1;
+//       cartItems.push(productToCart);
+//     }
+//     localStorage.setItem("products", JSON.stringify(cartItems));
+//     localStorage.setItem("cart", JSON.stringify(productCount));
+//   };
+
+//   const updateLocalStorage = (updatedCart: { [key: number]: number }) => {
+//     localStorage.setItem("cart", JSON.stringify(updatedCart));
+//   };
+
+//   const handleIncrease = (id: number, product: IProduct) => {
+//     const updatedCart = { ...productCount, [id]: (productCount[id] || 0) + 1 };
+
+//     if (!products.some((p) => p.id === id)) {
+//       setProducts((prev) => [...prev, product]);
+//       localStorage.setItem("products", JSON.stringify([...products, product]));
+//     }
+
+//     setProductCount(updatedCart);
+//     updateLocalStorage(updatedCart);
+//   };
+//   const handleDecrease = (id: number) => {
+//     const updatedCart = { ...productCount };
+//     if (updatedCart[id] > 1) {
+//       updatedCart[id] -= 1;
+//     } else {
+//       delete updatedCart[id];
+//       const updatedProducts = products.filter((product) => product.id !== id);
+//       setProducts(updatedProducts);
+//       localStorage.setItem("products", JSON.stringify(updatedProducts));
+//     }
+
+//     setProductCount(updatedCart);
+//     updateLocalStorage(updatedCart);
+//   };
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       const response = await axios.get(`https://fakestoreapi.com/products`);
+//       const fetchedProducts = response.data;
+//       setTotalCount(response.data.length);
+//       setProducts(fetchedProducts);
+//     };
+//     fetchProducts();
+//   }, [page]);
+
+//   const productsToShow = products.slice(skip, limit + skip);
+
+//   return (
+//     <Box sx={{ p: 4 }}>
+//       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
+//         <Box>
+//           <Typography variant="h4" fontWeight="bold">
+//             <PinterestIcon />
+//             Products
+//           </Typography>
+//         </Box>
+//         <Button
+//           variant="text"
+//           sx={{ borderRadius: "20px", px: 3 }}
+//           onClick={() => router.push("/cart")}
+//         >
+//           <ShoppingCartIcon />
+//           Go to Cart
+//         </Button>
+//       </Box>
+//       <Box sx={{ m: 5 }}>
+//         <Grid container spacing={2}>
+//           {productsToShow.map((product) => (
+//             <Grid key={product.id} size={{ xs: 12, md: 12, lg: 6 }}>
+//               <Card sx={{ maxWidth: 500 }}>
+//                 <CardContent>
+//                   <Box
+//                     component="img"
+//                     src={product.image}
+//                     alt={product.title}
+//                     sx={{ m: 2, width: 300, height: 300 }}
+//                   />
+//                   <Tooltip title={product.title} sx={{ maxWidth: 100 }}>
+//                     <Typography>{product.title}</Typography>
+//                   </Tooltip>
+//                 </CardContent>
+//                 <CardActions>
+//                   <Button onClick={() => handleAddToLocal(product.id)}>
+//                     Add to Cart
+//                   </Button>
+//                 </CardActions>
+//               </Card>
+//             </Grid>
+//           ))}
+//         </Grid>
+//       </Box>
+//       <Box
+//         sx={{
+//           display: "flex",
+//           justifyContent: "center",
+//           mt: 4,
+//           fontSize: "60px",
+//         }}
+//       >
+//         <Pagination
+//           count={totalCount / limit}
+//           page={page}
+//           onChange={handleChange}
+//         />
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default ProductsPage;
+
+"use client";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Pagination,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Grid2";
+import { useRouter } from "next/navigation";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+export type IProduct = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+};
+const ProductsPage = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [productCount, setProductCount] = useState<{ [key: number]: number }>(
+    {}
   );
-}
+  const [cartProducts, setCartProducts] = useState<IProduct[]>([]);
+
+  const router = useRouter();
+
+  const limit = 4;
+  const skip = (page - 1) * limit;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await axios.get(`https://fakestoreapi.com/products`);
+      setTotalCount(response.data.length);
+      setProducts(response.data);
+    };
+    fetchProducts();
+
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setProductCount(JSON.parse(storedCart));
+    }
+    const storedProducts = localStorage.getItem("products");
+    if (storedProducts) {
+      setCartProducts(JSON.parse(storedProducts));
+    }
+  }, [page]);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    router.push(`?page=${value}`);
+  };
+
+  const updateLocalStorage = (
+    updatedCart: { [key: number]: number },
+    updatedProducts: IProduct[]
+  ) => {
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+  };
+
+  const handleIncrease = (id: number, product: IProduct) => {
+    const updatedCart = { ...productCount, [id]: (productCount[id] || 0) + 1 };
+    // setProductCount(updatedCart);
+    // updateLocalStorage(updatedCart);
+    const existingProduct = cartProducts.find((p) => p.id === id);
+    const updatedProducts = existingProduct
+      ? cartProducts
+      : [...cartProducts, product];
+
+    setProductCount(updatedCart);
+    setCartProducts(updatedProducts);
+    updateLocalStorage(updatedCart, updatedProducts);
+  };
+  // const handleAddToLocal = async (id: number) => {
+  //   const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
+  //   const productToCart = res.data;
+  //   const existingStorage = localStorage.getItem("products");
+  //   const existingCart = localStorage.getItem("cart");
+
+  //   const cartItems: IProduct[] = existingStorage
+  //     ? JSON.parse(existingStorage)
+  //     : [];
+  //   const productCount: { [key: number]: number } = existingCart
+  //     ? JSON.parse(existingCart)
+  //     : {};
+
+  //   if (productCount[id]) {
+  //     productCount[id] += 1;
+  //   } else {
+  //     productCount[id] = 1;
+  //     cartItems.push(productToCart);
+  //   }
+  //   localStorage.setItem("products", JSON.stringify(cartItems));
+  //   localStorage.setItem("cart", JSON.stringify(productCount));
+  // };
+
+  const handleDecrease = (id: number) => {
+    const updatedCart = { ...productCount };
+    if (updatedCart[id] > 1) {
+      updatedCart[id] -= 1;
+    } else {
+      delete updatedCart[id];
+      const updatedProducts = cartProducts.filter(
+        (product) => product.id !== id
+      );
+      setCartProducts(updatedProducts);
+      updateLocalStorage(updatedCart, updatedProducts);
+      return;
+    }
+    setProductCount(updatedCart);
+    updateLocalStorage(updatedCart, cartProducts);
+  };
+
+  const productsToShow = products.slice(skip, limit + skip);
+
+  return (
+    <Box sx={{ p: 4 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
+        <Typography variant="h4" fontWeight="bold">
+          Products
+        </Typography>
+        <Button
+          variant="text"
+          sx={{ borderRadius: "20px", px: 3 }}
+          onClick={() => router.push("/cart")}
+        >
+          <ShoppingCartIcon />
+        </Button>
+      </Box>
+      <Box sx={{ m: 5 }}>
+        <Grid container spacing={2}>
+          {productsToShow.map((product) => (
+            <Grid key={product.id} size={{ xs: 12, md: 12, lg: 6 }}>
+              <Card sx={{ maxWidth: 500 }}>
+                <CardContent>
+                  <Box
+                    component="img"
+                    src={product.image}
+                    alt={product.title}
+                    sx={{ m: 2, width: 300, height: 300 }}
+                  />
+                  <Tooltip title={product.title}>
+                    <Typography>{product.title}</Typography>
+                  </Tooltip>
+                </CardContent>
+                <CardActions>
+                  {productCount[product.id] ? (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Button onClick={() => handleDecrease(product.id)}>
+                        -
+                      </Button>
+                      <Typography>{productCount[product.id]}</Typography>
+                      <Button
+                        onClick={() => handleIncrease(product.id, product)}
+                      >
+                        +
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Button onClick={() => handleIncrease(product.id, product)}>
+                      Add to Cart
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Pagination
+          count={Math.ceil(totalCount / limit)}
+          page={page}
+          onChange={handleChange}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default ProductsPage;
