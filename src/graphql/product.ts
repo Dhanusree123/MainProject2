@@ -83,3 +83,54 @@ title
 }
 }`;
 
+export const CREATE_PRODUCT = `
+mutation createProduct($input:CreateProductDto!){
+createProduct(input:$input){
+active
+brand
+brandId
+categoryId
+categorypath
+code
+createdAt
+createdBy
+dealPrice
+description
+expired
+handPicked
+id
+images
+landingImage
+listPrice
+mrp
+priceHistory
+rating
+reviews
+sales
+slug
+store
+storeId
+title
+updatedAt
+updatedBy{
+email
+name
+}
+}
+}
+`
+
+export const UPDATE_PRODUCT = `
+mutation updateProduct($id:String! $input:UpdateProductDto!){
+    updateProduct(id:$id,input:$input){
+        id
+        title
+        images
+        mrp
+        dealPrice
+        listPrice
+        handPicked
+        expired
+    }
+}
+`

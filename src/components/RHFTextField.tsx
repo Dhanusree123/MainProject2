@@ -6,7 +6,7 @@ type Props = TextFieldProps & {
   //   type: "text";
 };
 const RHFTextField = (props: Props) => {
-  const { control, register } = useFormContext();
+  const { control } = useFormContext();
 
   const { name, helperText, type = "text" } = props;
   return (
@@ -22,7 +22,7 @@ const RHFTextField = (props: Props) => {
             value={field.value}
             error={!!error}
             helperText={error ? error?.message : helperText}
-            {...register(name)}
+            // {...register(name)}
           />
         )}
       />

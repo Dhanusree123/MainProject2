@@ -23,6 +23,7 @@ export const FetchCategory = async(
       });
       const data = await response.data;
       const categories = data.data.findCategories;
+      // console.log(categories)
       return categories;
       
     } catch (err) {

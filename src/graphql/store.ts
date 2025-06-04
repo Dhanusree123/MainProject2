@@ -22,6 +22,8 @@ export const FetchStore = async () => {
     });
     const data = await response.data;
     const stores = data.data.findStores;
+    // const x = stores.map((m)=>m.title)
+    // console.log(x)
     return stores;
   } catch (err) {
     console.error(err);

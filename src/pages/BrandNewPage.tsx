@@ -17,9 +17,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
-//   import { BrandsPageProps } from "./brand-view";
-// import WbSunny from "@mui/icons-material/WbSunny";
-// import Bedtime from "@mui/icons-material/Bedtime";
 import { Home } from "@mui/icons-material";
 import { CREATE_BRAND } from "../graphql/brand";
 

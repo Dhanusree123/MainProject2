@@ -14,7 +14,7 @@ export const ProductSchema = z.object({
     slug:z.coerce.string().min(1,"URL Slug must be longer than 16 characters"),
     dealPrice:z.coerce.number().gt(0,"Deal price must be greater than 0"),
     description:z.string().min(32,"Description must be longer than 32 characters"),
-    images:z.array(z.string().url()).min(1,"Please add atleast one image"),
+    images:z.array(z.string().url()).min(0,"Please add atleast one image"),
     listPrice:z.coerce.number().gt(0,"List price must be greater than 0"),
     mrp:z.coerce.number().gt(0,"MRP must be greater than 0"),
     rating:z.coerce.number().gte(0,"Rating must be greater than or equal to 0"),
@@ -23,7 +23,7 @@ export const ProductSchema = z.object({
 })
 export type IProduct = z.infer<typeof ProductSchema>;
 
-export const AddProduct = ProductSchema.omit({active:true,expired:true,categoryPath:true}).strict()
+export const AddProduct = ProductSchema.omit({id:true,active:true,expired:true,categoryPath:true}).strict()
 .refine(data=>data.listPrice<= data.mrp,{
     message:"List price must be less than or equal to MRP",
     path:["listPrice"],
@@ -42,3 +42,5 @@ export type FieldType = {
     }[],
     onSubmit:SubmitHandler<AddProductType>
 }
+
+

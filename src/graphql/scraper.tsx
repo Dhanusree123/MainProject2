@@ -1,8 +1,9 @@
 import axios from "axios";
-import { Scraper } from "../types/scraper";
+// import { Scraper } from "../types/scraper";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button, TextField } from "@mui/material";
+import { IProduct } from "../newtypes/product";
 
 export const SCRAPER = `
 query scraper($url:String!){ 
@@ -21,7 +22,7 @@ query scraper($url:String!){
 }`;
 
 type TestFileProps = {
-  onDataFetched: (data: Scraper) => void;
+  onDataFetched: (data: IProduct) => void;
 };
 
 const ProductsFromScraper = ({ onDataFetched }: TestFileProps) => {
@@ -47,7 +48,7 @@ const ProductsFromScraper = ({ onDataFetched }: TestFileProps) => {
           },
         }
       );
-      const scrapedData: Scraper = response.data.data.scraper;
+      const scrapedData: IProduct = response.data.data.scraper;
       console.log(scrapedData);
       onDataFetched(scrapedData);
     } catch (err) {

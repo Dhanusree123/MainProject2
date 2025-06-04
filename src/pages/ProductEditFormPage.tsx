@@ -10,16 +10,18 @@ import {
   Container,
 } from "@mui/material";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IProduct, ProductSchema } from "../types/product";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { FIND_PRODUCT_BY_ID } from "../graphql/product";
+import { FIND_PRODUCT_BY_ID, UPDATE_PRODUCT } from "../graphql/product";
 import { Home } from "@mui/icons-material";
+import { toast } from "sonner";
 
 const ProductEditFormPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const methods = useForm<IProduct>({
     resolver: zodResolver(ProductSchema),
@@ -45,7 +47,11 @@ const ProductEditFormPage = () => {
     mode: "onChange",
   });
 
-  const { setValue, control } = methods;
+  const {
+    setValue,
+    control,
+    formState: { errors },
+  } = methods;
 
   const FetchProduct = useCallback(async () => {
     try {
@@ -77,6 +83,10 @@ const ProductEditFormPage = () => {
       setValue("code", fetchedProduct.code);
       setValue("brand", fetchedProduct.brand);
       setValue("categoryPath", fetchedProduct.categoryPath);
+      const category = fetchedProduct.categoryPath;
+      const val = category.replace(/[_-]/g, " ");
+      setValue("category", val);
+      console.log(val);
       setValue("store", fetchedProduct.store);
       setValue("rating", fetchedProduct.rating);
       setValue("reviews", fetchedProduct.reviews);
@@ -89,13 +99,47 @@ const ProductEditFormPage = () => {
     }
   }, [id, setValue]);
 
-  const onSubmit = (data: IProduct) => {
+  const onSubmit = async (data: IProduct) => {
+    const AUTH_TOKEN =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2N2EwNjc3ODQyNmQ4YTYxZmVhMGU5MzAiLCJlbWFpbCI6ImludGVybnNAbWljcm9mb3guY28iLCJpYXQiOjE3MzkxNjQ3ODMsImV4cCI6MTc0MTc1Njc4M30.w3Noq69dqXl3t2sbAfNDueQFr7IT85lXh0ln4LVM6TY";
+    const res = await axios.post(
+      "https://test-api.nine.deals/graphql",
+      {
+        query: UPDATE_PRODUCT,
+        variables: {
+          id,
+          input: {
+            active: data.active,
+            title: data.title,
+            mrp: data.mrp,
+            dealPrice: data.dealPrice,
+            listPrice: data.listPrice,
+            images: data.images,
+          },
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${AUTH_TOKEN}`,
+        },
+      }
+    );
+    console.log(res);
     console.log("clicked", data);
+    if (!res.data.data) {
+      toast.error(res.data.errors[0].message);
+    } else {
+      toast.success("Product updated successfully");
+      navigate("/products");
+    }
   };
 
+  console.log(errors);
   useEffect(() => {
     FetchProduct();
   }, [FetchProduct]);
+
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "Background.default", py: 4 }}>
       <Container maxWidth="md">
@@ -121,6 +165,7 @@ const ProductEditFormPage = () => {
                 {...methods.register("id")}
                 fullWidth
                 placeholder="Id"
+                label="Id"
                 margin="normal"
                 disabled
               />
@@ -128,6 +173,7 @@ const ProductEditFormPage = () => {
                 {...methods.register("title")}
                 fullWidth
                 placeholder="Title"
+                label="Title"
                 margin="normal"
               />
               <TextField
@@ -185,6 +231,7 @@ const ProductEditFormPage = () => {
                 placeholder="Category"
                 margin="normal"
               />
+              <TextField {...methods.register("category")} fullWidth />
               <TextField
                 {...methods.register("store")}
                 fullWidth
